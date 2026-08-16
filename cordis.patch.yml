@@ -1,0 +1,6 @@
+# dsh-habit bundle patch: one insert over the profile root.
+# `storage` already lives in the host (dsh-base); `llm` supplies the
+# judgment model. This adds only the habit plugin.
+- insert:
+    - id: habit
+      name: '@max-null/dsh-habit'

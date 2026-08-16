@@ -1,0 +1,26 @@
+{
+  // typecheck 配置：paths 指向相邻 DSH checkout 的构建产物（lib/types/*.d.ts）。
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "declaration": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "types": ["node"],
+    "noEmit": true,
+    "paths": {
+      "@deepseek-ai/cordis": ["../deepseek-harness/vendor/cordis/lib/types"],
+      "@deepseek-ai/dsh-llm": ["../deepseek-harness/packages/llm/llm/lib/types"],
+      "@deepseek-ai/dsh-session": ["../deepseek-harness/packages/core/session/lib/types"],
+      "@deepseek-ai/dsh-storage": ["../deepseek-harness/packages/storage/storage/lib/types"],
+      "@deepseek-ai/dsh-storage-json": ["../deepseek-harness/packages/storage/storage-json/lib/types"]
+    }
+  },
+  "include": ["src", "tests"]
+}
