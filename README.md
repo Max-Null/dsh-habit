@@ -18,6 +18,13 @@ judgment is an event-driven plugin, immune to context decay.
             → user confirms again → auto → recall injection
 ```
 
+## 截图
+
+本插件是**行为提示类**：不新增任何按钮、面板或设置项。它会识别你的重复要求（如「再检查一下」「重新做」）并在会话中给出相应提示。
+
+> 按《SSiD 开发手册》§9 截图规范：截图须回答「装完会多出/变成什么」的**入口与面板**。
+> 本插件无界面元素（no UI surface），故**不适用**该项要求，改以上述行为效果说明代替。
+
 ## Compose
 
 ```yaml
