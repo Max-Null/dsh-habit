@@ -20,7 +20,12 @@ judgment is an event-driven plugin, immune to context decay.
 
 ## 截图
 
-本插件是**行为提示类**：不新增任何按钮、面板或设置项。它会识别你的重复要求（如「再检查一下」「重新做」）并在会话中给出相应提示。
+本插件是**行为提示类**：不新增任何按钮、面板或设置项，也**不向会话注入任何内容**。
+
+行为效果是**后台沉淀**，全程静默：同一会话内累积到 3 条命中固定纠正短语（如「再检查一下」「重新做」）的短消息后，
+插件在回合结束时做一次低成本模型判断；只有判定为「稳定习惯」才落一条候选（状态 `pending`，存于 `$DSH_HOME/storages/habit`）。
+候选由宿主 UI 读管——SSiD 侧是侧栏的「习惯」面板，确认后写入 dsh-memory（`suggested`），再由人放行转 `auto`。
+未达阈值、判断失败或消息不匹配时，插件不做任何可见动作，会话里看不到任何痕迹。
 
 > 按《SSiD 开发手册》§9 截图规范：截图须回答「装完会多出/变成什么」的**入口与面板**。
 > 本插件无界面元素（no UI surface），故**不适用**该项要求，改以上述行为效果说明代替。
@@ -63,6 +68,25 @@ Installs as a bundle: `dsh plugin --profile <name> add @max-null/dsh-habit`.
   texts plus the existing habit list — judgment quality comes from precise
   context, not volume.
 
+## Dependencies
+
+`@deepseek-ai/cordis` (`^4.0.1`) plus four kernel packages declared as explicit ranges:
+`@deepseek-ai/dsh-llm` and `@deepseek-ai/dsh-session` as `>=0.1.7-rc.2 <0.3.0`,
+`@deepseek-ai/dsh-storage` and `@deepseek-ai/dsh-storage-json` as `>=0.1.1-rc.1 <0.3.0`.
+
+**Why a range rather than a caret.** A caret's upper bound is the next minor: `^0.1.7-rc.2`
+expands to `>=0.1.7-rc.2 <0.2.0-0`, which a kernel one minor ahead fails. An unsatisfied
+`dsh-*` peer is not a warning — the plugin is skipped instead of loaded: it never enters the
+fiber graph and never appears in the `did not activate` list, so the only symptom is a missing
+set of features. The explicit range admits both the 0.1 and the 0.2 kernel lines.
+
+The check is `app-boot`'s `plugin-compatibility.ts`: it walks `peerDependencies` entries whose
+name is `@deepseek-ai/dsh` or starts with `@deepseek-ai/dsh-`, testing
+`semver.satisfies(runtimeVersion, requirement, { includePrerelease: true })` — which is why
+`@deepseek-ai/cordis` and the other non-`dsh-*` peers sit outside the check. Measured with
+semver 7.7.4 against runtime `0.2.0-rc.1`: `^0.1.7-rc.2` and `^0.1.1-rc.1` are `false`;
+`>=0.1.7-rc.2 <0.3.0` and `>=0.1.1-rc.1 <0.3.0` are `true`.
+
 ## Develop
 
 ```sh
@@ -73,5 +97,7 @@ npm run build
 ```
 
 ## SSID 系列
+
+本插件是 **[SSID（思灵 · Seek Soul in Darkness）](https://github.com/Max-Null/seek-soul-in-darkness)** 全家桶的一员；也可以单独安装到任意 DSH profile——插件自身不依赖其它同系列插件，候选的读管界面由宿主提供（SSiD 侧为 `dsh-ssid-panels` 的「习惯」面板）。
 
 

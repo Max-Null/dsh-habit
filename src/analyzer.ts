@@ -66,7 +66,10 @@ export async function analyzeHabits(ctx: Context, request: AnalyzeRequest): Prom
       system: SYSTEM_PROMPT,
       messages: [createUserMessage({
         content: [{ type: 'text', text: userPrompt }],
-        source: { kind: 'plugin', plugin: 'dsh-habit' },
+        // 内核 v4 的 source 准入接受 `plugin:<名>`（session-format-v3-to-v4 的 message-sources.spec.ts
+        // 就以 'plugin:acme' 为正例），而 dsh-llm 的 MessageSourceMap 只列官方生产者。第三方按既有实践
+        // 走双层断言 —— 已发布的 dsh-genui 同款（fence-feedback.ts:175 `as unknown as UserMessage`）。
+        source: { kind: 'plugin:dsh-habit' } as unknown as Parameters<typeof createUserMessage>[0]['source'],
       })],
       temperature: 0,
       maxTokens: 1024,
