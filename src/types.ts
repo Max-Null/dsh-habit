@@ -31,7 +31,7 @@ export interface CorrectionSignal {
 
 /** 引擎配置。 */
 export interface HabitConfig {
-  /** 触发 LLM 判断的纠正信号阈值（默认 3）。 */
+  /** 触发 LLM 判断的纠正信号阈值（默认 2；2026-11-23 从 3 降下来——3 条门槛在真实对话里几乎攒不到）。 */
   signalThreshold?: number
   /** 分析用模型（默认 flash，成本优先）。 */
   provider?: string

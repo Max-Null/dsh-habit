@@ -22,7 +22,7 @@ judgment is an event-driven plugin, immune to context decay.
 
 本插件是**行为提示类**：不新增任何按钮、面板或设置项，也**不向会话注入任何内容**。
 
-行为效果是**后台沉淀**，全程静默：同一会话内累积到 3 条命中固定纠正短语（如「再检查一下」「重新做」）的短消息后，
+行为效果是**后台沉淀**，全程静默：同一会话内累积到 2 条命中固定纠正短语（如「再检查一下」「重新做」）、各不超过 400 字的短消息后，
 插件在回合结束时做一次低成本模型判断；只有判定为「稳定习惯」才落一条候选（状态 `pending`，存于 `$DSH_HOME/storages/habit`）。
 候选由宿主 UI 读管——SSiD 侧是侧栏的「习惯」面板，确认后写入 dsh-memory（`suggested`），再由人放行转 `auto`。
 未达阈值、判断失败或消息不匹配时，插件不做任何可见动作，会话里看不到任何痕迹。
@@ -51,7 +51,7 @@ Installs as a bundle: `dsh plugin --profile <name> add @max-null/dsh-habit`.
 
 | Field | Default | Meaning |
 |---|---|---|
-| `signalThreshold` | `3` | Correction signals before one judgment call |
+| `signalThreshold` | `2` | Correction signals before one judgment call |
 | `provider` | `deepseek-official` | Judgment model provider |
 | `model` | `deepseek-v4-flash` | Judgment model (cheap, deterministic) |
 | `storageRoot` | `$DSH_HOME/storages/habit` | JSON storage root |

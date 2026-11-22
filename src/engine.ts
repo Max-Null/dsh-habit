@@ -49,7 +49,7 @@ export class HabitEngine extends Service {
 
   constructor(ctx: Context, private readonly config: HabitConfig = {}) {
     super(ctx, 'habit')
-    this.signalThreshold = config.signalThreshold ?? 3
+    this.signalThreshold = config.signalThreshold ?? 2
     this.judgeProvider = config.provider ?? 'deepseek-official'
     this.judgeModel = config.model ?? 'deepseek-v4-flash'
   }

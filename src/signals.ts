@@ -31,8 +31,14 @@ export const CORRECTION_PATTERNS: readonly string[] = [
   '别忘了',
 ]
 
-/** 纠正消息的最大长度（超过视为任务描述而非纠正）。 */
-export const MAX_CORRECTION_LENGTH = 200
+/**
+ * 纠正消息的最大长度（超过视为任务描述而非纠正）。
+ *
+ * 2026-11-23 从 200 提到 400：真实纠正常常带一句原因（「这里错了，因为
+ * 你刚才那段把 A 当成 B 了」），200 字会把它们整条丢掉，只剩「这不对」这种
+ * 光秃秃的三字消息能命中——门槛因此形同虚设。
+ */
+export const MAX_CORRECTION_LENGTH = 400
 
 /**
  * 检测一条用户消息是否为纠正信号。
