@@ -51,7 +51,7 @@ export class HabitEngine extends Service {
     super(ctx, 'habit')
     this.signalThreshold = config.signalThreshold ?? 2
     this.judgeProvider = config.provider ?? 'deepseek-official'
-    this.judgeModel = config.model ?? 'deepseek-v4-flash'
+    this.judgeModel = config.model ?? 'deepseek-flash'
   }
 
   /** UI 快照：全部候选（新在前）。 */

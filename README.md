@@ -53,7 +53,7 @@ Installs as a bundle: `dsh plugin --profile <name> add @max-null/dsh-habit`.
 |---|---|---|
 | `signalThreshold` | `2` | Correction signals before one judgment call |
 | `provider` | `deepseek-official` | Judgment model provider |
-| `model` | `deepseek-v4-flash` | Judgment model (cheap, deterministic) |
+| `model` | `deepseek-flash` | Judgment model (cheap, deterministic) |
 | `storageRoot` | `$DSH_HOME/storages/habit` | JSON storage root |
 
 ## Design notes

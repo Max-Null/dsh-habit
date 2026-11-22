@@ -1,6 +1,6 @@
 {
   "name": "@max-null/dsh-habit",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Self-learning habit engine for the DeepSeek Harness — detects user-correction signals, judges habits with a low-cost model on threshold, settles candidates behind a two-level human gate",
   "license": "MIT",
   "publishConfig": {
